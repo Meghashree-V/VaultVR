@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Heart, ShoppingCart, Star, Eye, Download, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { VRModelViewer } from "@/components/VRModelViewer";
-import { Heart, Eye, ShoppingCart, ArrowLeft, Share2, Star } from "lucide-react";
-import { useState } from "react";
+import { useMarketplaceStore } from "@/store/marketplaceStore";
 
 const marketplaceItems = [
   {
@@ -34,19 +37,6 @@ const marketplaceItems = [
   },
   {
     id: 3,
-    title: "Couch Small",
-    glb: "/models/Couch Small.glb",
-    category: "Furniture",
-    price: "65 ICP",
-    likes: 445,
-    views: 2800,
-    description: "Compact modern couch perfect for small spaces and cozy VR living environments.",
-    creator: "HomeDesign3D",
-    rating: 4.7,
-    reviews: 134
-  },
-  {
-    id: 4,
     title: "Desk",
     glb: "/models/Desk.glb",
     category: "Furniture",
@@ -59,7 +49,7 @@ const marketplaceItems = [
     reviews: 98
   },
   {
-    id: 5,
+    id: 4,
     title: "Duck",
     glb: "/models/Duck.glb",
     category: "Object/Prop",
@@ -72,7 +62,7 @@ const marketplaceItems = [
     reviews: 45
   },
   {
-    id: 6,
+    id: 5,
     title: "Kitchen Table",
     glb: "/models/Kitchen Table.glb",
     category: "Furniture",
@@ -85,7 +75,7 @@ const marketplaceItems = [
     reviews: 167
   },
   {
-    id: 7,
+    id: 6,
     title: "Nail Polish",
     glb: "/models/Nail Polish.glb",
     category: "Beauty",
@@ -98,7 +88,7 @@ const marketplaceItems = [
     reviews: 56
   },
   {
-    id: 8,
+    id: 7,
     title: "Office Chair",
     glb: "/models/Office Chair.glb",
     category: "Furniture",
@@ -111,7 +101,7 @@ const marketplaceItems = [
     reviews: 112
   },
   {
-    id: 9,
+    id: 8,
     title: "Plants - Assorted Shelf Plants",
     glb: "/models/Plants - Assorted shelf plants.glb",
     category: "Decor",
@@ -122,12 +112,13 @@ const marketplaceItems = [
     creator: "GreenThumb3D",
     rating: 4.7,
     reviews: 156
-  }
+  },
 ];
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { items: marketplaceItems } = useMarketplaceStore();
   const [isLiked, setIsLiked] = useState(false);
   
   const product = marketplaceItems.find(item => item.id === parseInt(id || "0"));
@@ -165,8 +156,8 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* VR Model Viewer */}
           <div className="space-y-4">
-            <div className="bg-zinc-900 rounded-2xl p-4">
-              <VRModelViewer url={product.glb} />
+            <div className="bg-zinc-900 rounded-2xl p-4 h-[600px]">
+              <VRModelViewer modelUrl={product.glb} />
             </div>
             <p className="text-sm text-zinc-400 text-center">
               Click and drag to rotate • Scroll to zoom

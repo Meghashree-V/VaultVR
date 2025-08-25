@@ -1,26 +1,31 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, User, Wallet, Bell, Menu, X, ShoppingBag, Plus, Home } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ICPAuthButton } from "@/components/ICPAuthButton";
+import { Search, User, ShoppingCart, Bell } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleWallet = () => setIsConnected(!isConnected);
-  return <header className="sticky top-0 z-50 glass border-b border-glass-border">
+
+  return (
+    <header className="sticky top-0 z-50 glass border-b border-glass-border">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-4">
-            
-            <div className="hidden md:block">
-              <h1 className="text-xl font-bold gradient-text">Vault VR </h1>
-              
-            </div>
+            <Button variant="ghost" size="sm">
+              <Bell size={20} />
+            </Button>
+            <ICPAuthButton />
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <a href="/" className="flex items-center space-x-2 text-foreground hover:text-neon-cyan transition-colors">
+            <Link to="/" className="flex items-center space-x-2 text-foreground hover:text-neon-cyan transition-colors">
               <Home size={18} />
               <span>Home</span>
             </a>

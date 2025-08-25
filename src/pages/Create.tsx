@@ -4,19 +4,22 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { VRModelViewer } from "@/components/VRModelViewer";
+import { useMarketplaceStore } from "@/store/marketplaceStore";
 import { Upload, Eye, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const categories = [
+  "Furniture",
+  "Architecture", 
+  "Beauty",
+  "Object/Prop",
+  "Decor",
+  "Vehicle",
   "Avatars",
-  "Props", 
-  "Environments",
-  "Vehicles",
-  "Wearables",
-  "VR Experiences",
-  "Animations",
-  "Textures"
+  "Wearables"
 ];
 
 const acceptedFileTypes = [
@@ -28,6 +31,8 @@ const acceptedFileTypes = [
 ];
 
 export default function Create() {
+  const navigate = useNavigate();
+  const { addItem } = useMarketplaceStore();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -95,9 +100,26 @@ export default function Create() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      toast.success("Asset published successfully!");
+      // For demo purposes, we'll use the blob URL directly
+      // In a real app, the file would be uploaded to a server/CDN
       
-      // Reset form
+      // Add new item to marketplace store with blob URL
+      addItem({
+        title: formData.title,
+        glb: previewUrl!, // Use the blob URL that's already working in preview
+        category: formData.category,
+        price: `${formData.price} ICP`,
+        likes: 0,
+        views: 0,
+        description: formData.description,
+        creator: "You",
+        rating: 5.0,
+        reviews: 0
+      });
+      
+      toast.success("Asset published successfully! Redirecting to marketplace...");
+      
+      // Reset form but keep the blob URL alive for marketplace
       setFormData({
         title: "",
         description: "",
@@ -105,7 +127,13 @@ export default function Create() {
         price: ""
       });
       setUploadedFile(null);
-      setPreviewUrl(null);
+      // Don't revoke the blob URL immediately as marketplace needs it
+      // setPreviewUrl(null);
+      
+      // Redirect to marketplace after a short delay
+      setTimeout(() => {
+        navigate('/marketplace');
+      }, 1500);
       
     } catch (error) {
       toast.error("Failed to publish asset. Please try again.");
@@ -187,16 +215,13 @@ export default function Create() {
                       </div>
 
                       {/* 3D Preview */}
-                      {previewUrl && (
+                      {previewUrl && uploadedFile && (uploadedFile.name.endsWith('.glb') || uploadedFile.name.endsWith('.gltf')) && (
                         <div className="space-y-4">
                           <Label className="text-base font-medium">3D Preview</Label>
-                          <div className="glass rounded-lg p-6 text-center">
-                            <div className="w-full h-48 bg-background/30 rounded-lg flex items-center justify-center mb-4">
-                              <Eye className="w-12 h-12 text-muted-foreground" />
+                          <div className="glass rounded-lg p-2">
+                            <div className="w-full h-64">
+                              <VRModelViewer modelUrl={previewUrl} />
                             </div>
-                            <p className="text-sm text-muted-foreground">
-                              Interactive 3D preview will appear here
-                            </p>
                           </div>
                         </div>
                       )}

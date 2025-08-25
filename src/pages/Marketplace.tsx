@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { Heart, Eye, ShoppingCart, Search, Filter, Grid, List, Plus } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Heart, Grid3X3, List, Search, Filter, Eye, ShoppingCart, Plus, Grid } from "lucide-react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { VRModelViewer } from "@/components/VRModelViewer";
+import { useMarketplaceStore } from "@/store/marketplaceStore";
 
 const marketplaceItems = [
   {
@@ -29,15 +30,6 @@ const marketplaceItems = [
   },
   {
     id: 3,
-    title: "Couch Small",
-    glb: "/models/Couch Small.glb",
-    category: "Furniture",
-    price: "65 ICP",
-    likes: 445,
-    views: 2800
-  },
-  {
-    id: 4,
     title: "Desk",
     glb: "/models/Desk.glb",
     category: "Furniture",
@@ -46,7 +38,7 @@ const marketplaceItems = [
     views: 2400
   },
   {
-    id: 5,
+    id: 4,
     title: "Duck",
     glb: "/models/Duck.glb",
     category: "Object/Prop",
@@ -55,7 +47,7 @@ const marketplaceItems = [
     views: 890
   },
   {
-    id: 6,
+    id: 5,
     title: "Kitchen Table",
     glb: "/models/Kitchen Table.glb",
     category: "Furniture",
@@ -64,7 +56,7 @@ const marketplaceItems = [
     views: 3600
   },
   {
-    id: 7,
+    id: 6,
     title: "Nail Polish",
     glb: "/models/Nail Polish.glb",
     category: "Beauty",
@@ -73,7 +65,7 @@ const marketplaceItems = [
     views: 1100
   },
   {
-    id: 8,
+    id: 7,
     title: "Office Chair",
     glb: "/models/Office Chair.glb",
     category: "Furniture",
@@ -82,7 +74,7 @@ const marketplaceItems = [
     views: 2100
   },
   {
-    id: 9,
+    id: 8,
     title: "Plants - Assorted Shelf Plants",
     glb: "/models/Plants - Assorted shelf plants.glb",
     category: "Decor",
@@ -94,12 +86,13 @@ const marketplaceItems = [
 
 export default function Marketplace() {
   const navigate = useNavigate();
+  const { items: marketplaceItems } = useMarketplaceStore();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [likedItems, setLikedItems] = useState<number[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = ["All", "Wearable", "Environment", "Object/Prop", "Vehicle", "Avatar", "VR Experience"];
+  const categories = ["All", "Furniture", "Architecture", "Beauty", "Object/Prop", "Decor"];
 
   const toggleLike = (itemId: number) => {
     setLikedItems(prev => 
@@ -197,11 +190,11 @@ export default function Marketplace() {
 
         {/* Marketplace Grid */}
         <section className="pb-20">
-          <div className="container mx-auto px-6">
-            <div className={`grid gap-6 ${
+          <div className="container mx-auto px-2">
+            <div className={`grid gap-4 ${
               viewMode === 'grid' 
-                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-                : 'grid-cols-1 max-w-4xl mx-auto'
+                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3' 
+                : 'grid-cols-1 max-w-6xl mx-auto'
             }`}>
               {filteredItems.map((item) => (
                 <div 
@@ -211,8 +204,8 @@ export default function Marketplace() {
                     viewMode === 'list' ? 'flex' : ''
                   }`}
                 >
-                  <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
-                    <VRModelViewer url={item.glb} />
+                  <div className={`relative ${viewMode === 'list' ? 'w-64 flex-shrink-0' : 'h-96'}`}>
+                    <VRModelViewer modelUrl={item.glb} />
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
