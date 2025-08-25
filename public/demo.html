@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vault VR — Demo</title>
+    <style>
+      body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:#0b0b0c; color:#e5e7eb; }
+      .wrap { min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
+      .card { width: min(1200px, 96vw); background: #111214; border: 1px solid #2a2b2e; border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.45); }
+      h1 { margin: 4px 0 16px; font-size: 22px; font-weight: 600; }
+      p { margin: 0 0 16px; opacity: 0.8; }
+      video { width: 100%; height: auto; outline: none; border-radius: 8px; background: #000; }
+      .hint { margin-top: 8px; font-size: 12px; opacity: 0.65; }
+      a { color: #93c5fd; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <h1>Vault VR — Demo</h1>
+        <p>Inline HTML5 player. If playback stalls, try the direct link below.</p>
+        <video
+          src="./DEMO_WORKING.mp4"
+          controls
+          playsinline
+          preload="metadata"
+          poster="./thumbnail.png"
+        ></video>
+        <div class="hint">
+          • Direct link to the video: <a href="./DEMO_WORKING.mp4">DEMO_WORKING.mp4</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

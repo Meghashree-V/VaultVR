@@ -18,7 +18,7 @@ An interactive VR asset marketplace built with Vite + React + TypeScript. Browse
 - Instant marketplace updates using a Zustand store
 
 ## Demo
-[![Watch the demo](public/demo-thumb.png)](public/DEMO_WORKING.mp4)
+[![Watch the demo](public/thumbnail.png)](public/demo.html)
 - Direct link: [public/DEMO_WORKING.mp4](public/DEMO_WORKING.mp4)
 
 ## Getting Started
