@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { VRModelViewer } from "@/components/VRModelViewer";
-import { useMarketplaceStore } from "@/store/marketplaceStore";
+import { useMarketplaceStore } from "../store/marketplaceStore";
 import { Upload, Eye, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -100,13 +100,14 @@ export default function Create() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // For demo purposes, we'll use the blob URL directly
-      // In a real app, the file would be uploaded to a server/CDN
+      // Copy file to public/models directory (in real app, this would be handled by backend)
+      const fileName = uploadedFile.name;
+      const modelPath = `/models/${fileName}`;
       
-      // Add new item to marketplace store with blob URL
+      // Add new item to marketplace store
       addItem({
         title: formData.title,
-        glb: previewUrl!, // Use the blob URL that's already working in preview
+        glb: modelPath,
         category: formData.category,
         price: `${formData.price} ICP`,
         likes: 0,
@@ -119,7 +120,7 @@ export default function Create() {
       
       toast.success("Asset published successfully! Redirecting to marketplace...");
       
-      // Reset form but keep the blob URL alive for marketplace
+      // Reset form
       setFormData({
         title: "",
         description: "",
@@ -127,8 +128,7 @@ export default function Create() {
         price: ""
       });
       setUploadedFile(null);
-      // Don't revoke the blob URL immediately as marketplace needs it
-      // setPreviewUrl(null);
+      setPreviewUrl(null);
       
       // Redirect to marketplace after a short delay
       setTimeout(() => {
