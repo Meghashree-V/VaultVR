@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Neon Horizon Design System - Futuristic VR Marketplace Theme */
+
+@layer base {
+  :root {
+    /* Neon Horizon Core Colors */
+    --background: 220 13% 6%;
+    --foreground: 210 40% 98%;
+    
+    /* Neon Accents */
+    --neon-cyan: 180 100% 50%;
+    --neon-purple: 260 100% 70%;
+    --neon-pink: 330 100% 70%;
+    --neon-blue: 220 100% 60%;
+    
+    /* Card & Surface Colors */
+    --card: 220 13% 8%;
+    --card-foreground: 210 40% 98%;
+    --glass: 220 13% 12%;
+    --glass-border: 220 13% 18%;
+    
+    /* Interactive Elements */
+    --primary: 180 100% 50%;
+    --primary-foreground: 220 13% 6%;
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 210 40% 98%;
+    
+    /* Status Colors */
+    --success: 140 100% 50%;
+    --warning: 45 100% 60%;
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Utility Colors */
+    --muted: 220 13% 18%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 260 100% 70%;
+    --accent-foreground: 220 13% 6%;
+    --border: 220 13% 18%;
+    --input: 220 13% 12%;
+    --ring: 180 100% 50%;
+    
+    /* Popover */
+    --popover: 220 13% 8%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--neon-cyan)) 0%, hsl(var(--neon-purple)) 50%, hsl(var(--neon-pink)) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--neon-purple)) 0%, hsl(var(--neon-blue)) 100%);
+    --gradient-glass: linear-gradient(135deg, hsla(var(--glass), 0.8), hsla(var(--glass), 0.4));
+    
+    /* Shadows & Glows */
+    --shadow-neon: 0 0 20px hsl(var(--neon-cyan) / 0.3);
+    --shadow-purple: 0 0 20px hsl(var(--neon-purple) / 0.3);
+    --shadow-pink: 0 0 20px hsl(var(--neon-pink) / 0.3);
+    --shadow-glass: 0 8px 32px hsla(220, 13%, 0%, 0.4);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    --radius: 1rem;
+  }
+}
+
+/* Glassmorphism & Neon Effects */
+@layer utilities {
+  .glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+    transition: var(--transition-smooth);
+  }
+  
+  .neon-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--neon-cyan) / 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .purple-glow {
+    box-shadow: var(--shadow-purple);
+    transition: var(--transition-smooth);
+  }
+  
+  .purple-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--neon-purple) / 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .pink-glow {
+    box-shadow: var(--shadow-pink);
+    transition: var(--transition-smooth);
+  }
+  
+  .pink-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--neon-pink) / 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px hsl(var(--neon-cyan) / 0.3); }
+  to { box-shadow: 0 0 40px hsl(var(--neon-cyan) / 0.6), 0 0 60px hsl(var(--neon-cyan) / 0.3); }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
