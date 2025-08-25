@@ -17,6 +17,19 @@ An interactive VR asset marketplace built with Vite + React + TypeScript. Browse
 - Auto-scaling and centering for uploaded models
 - Instant marketplace updates using a Zustand store
 
+## Demo
+- Watch the demo video: [public/DEMO_WORKING.mp4](public/DEMO_WORKING.mp4)
+
+<details>
+<summary>Inline preview (may not render on GitHub)</summary>
+
+<video src="public/DEMO_WORKING.mp4" controls width="720" style="max-width: 100%; height: auto;">
+  Your browser does not support the video tag. You can download it
+  <a href="public/DEMO_WORKING.mp4">here</a>.
+</video>
+
+</details>
+
 ## Getting Started
 
 ### Prerequisites
